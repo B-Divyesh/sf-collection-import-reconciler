@@ -1,0 +1,10 @@
+{
+  "slug": "collection-import-reconciler",
+  "title": "Catalog Reconciler",
+  "territory": "utilities",
+  "user": "Collectors moving a personal catalog between spreadsheets, Homebox, Koillection, or a new system who need to import without silently creating or renumbering records.",
+  "smallest_useful_product": "Local drag-and-drop CSV/JSON preflight that maps columns, normalizes identifiers, reports added/changed/missing/colliding rows, and emits a reviewed import file.",
+  "artifact_class": "static-web",
+  "monetization": "one-time",
+  "constraints": "Process files locally in-browser by default; document CSV formula-injection handling; never require marketplace credentials."
+}
