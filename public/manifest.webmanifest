@@ -1,0 +1,9 @@
+{
+  "name": "Catalog Reconciler",
+  "short_name": "Reconciler",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3ebd7",
+  "theme_color": "#f3ebd7",
+  "icons": [{ "src": "/mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

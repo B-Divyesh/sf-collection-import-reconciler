@@ -1,0 +1,11 @@
+{
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/assets/*", "/*.{css,js,svg,webp,json,webmanifest}"] },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+  },
+  "routes": [
+    { "route": "/assets/*", "headers": { "cache-control": "public, max-age=31536000, immutable" } }
+  ]
+}
