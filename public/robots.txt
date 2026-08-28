@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://collection-import-reconciler.sociobot.in/sitemap.xml

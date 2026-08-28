@@ -114,6 +114,12 @@ function bindFileSlot(kind: 'current' | 'incoming'): void {
   const load = async (file?: File) => {
     if (!file) return;
     const error = document.querySelector<HTMLElement>('#file-error');
+    slot.classList.add('reading');
+    slot.setAttribute('aria-busy', 'true');
+    const choose = slot.querySelector<HTMLElement>('.choose');
+    const previousChoose = choose?.textContent ?? 'Choose or drop CSV / JSON';
+    if (choose) choose.textContent = 'Reading locally…';
+    announce(`Reading ${file.name} locally.`);
     try {
       if (file.size > 25 * 1024 * 1024) throw new CatalogParseError('That file is over 25 MB. Split it into smaller catalogs and compare each part.');
       const catalog = parseCatalog(file.name, await file.text());
@@ -121,6 +127,9 @@ function bindFileSlot(kind: 'current' | 'incoming'): void {
       renderFiles();
       announce(`${kind === 'current' ? 'Current catalog' : 'Incoming file'} loaded: ${catalog.rows.length} rows.`);
     } catch (reason) {
+      slot.classList.remove('reading');
+      slot.removeAttribute('aria-busy');
+      if (choose) choose.textContent = previousChoose;
       if (error) {
         error.hidden = false;
         error.textContent = reason instanceof Error ? reason.message : 'The file could not be read. Try a CSV or JSON file.';
@@ -267,12 +276,12 @@ function exportCsv(): void {
   announce(`Exported ${state.result.exportRows.length} reviewed rows. Spreadsheet formulas were neutralized.`);
 }
 
-function renderWorkspace(): void {
+function renderWorkspace(scroll = true): void {
   document.querySelector('.steps')!.innerHTML = `${stepItem('files', '1', 'Files')}${stepItem('map', '2', 'Map')}${stepItem('review', '3', 'Review')}`;
   if (state.step === 'files') renderFiles();
   if (state.step === 'map') renderMap();
   if (state.step === 'review') renderReview();
-  document.querySelector('#workspace')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  if (scroll) document.querySelector('#workspace')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
 function licenseMarkup(): string {
@@ -312,7 +321,6 @@ function loadExample(): void {
   state.current = parseCatalog('my-collection.csv', 'import_ref,name,location,notes\nHB-001,Blue vase,Hall shelf,Inherited\nHB-002,Field guide,Study,First edition\nHB-003,Film camera,Studio,Working');
   state.incoming = parseCatalog('homebox-import.csv', 'import_ref,name,location\nhb-001,Blue vase,Living room\nHB-002,Field guide,Study\nHB-002,Duplicate row,Garage\n,Unnumbered print,Archive\nHB-004,Brass compass,Desk');
   state.options = undefined; state.result = undefined; state.step = 'files'; renderWorkspace();
-  document.querySelector('#workspace')?.scrollIntoView({ behavior: 'smooth' });
   announce('Example catalogs loaded. Continue to map identifiers.');
 }
 
@@ -323,8 +331,8 @@ function updateNetwork(): void {
 
 function bindGlobal(): void {
   updateNetwork();
-  window.addEventListener('online', updateNetwork, { once: true });
-  window.addEventListener('offline', updateNetwork, { once: true });
+  window.addEventListener('online', updateNetwork);
+  window.addEventListener('offline', updateNetwork);
 }
 
 async function render(): Promise<void> {
@@ -332,7 +340,7 @@ async function render(): Promise<void> {
   if (path === '/privacy' || path === '/terms') { renderLegal(path.slice(1) as 'privacy' | 'terms'); return; }
   document.title = 'Catalog Reconciler — preflight collection imports';
   app.innerHTML = homeMarkup();
-  bindGlobal(); renderWorkspace(); renderLicense();
+  bindGlobal(); renderWorkspace(false); renderLicense();
   document.querySelector('#load-example')?.addEventListener('click', loadExample);
   const returned = captureReturnedLicense();
   if (returned) { state.license = 'checking'; renderLicense(); }

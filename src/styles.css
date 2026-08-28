@@ -62,7 +62,7 @@ code { font-family: var(--mono); overflow-wrap: anywhere; }
 .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-family: var(--display); font-size: 14px; line-height: .95; letter-spacing: -.03em; text-transform: uppercase; }
 .brand img { box-shadow: 3px 3px 0 rgba(184, 62, 28, .45); }
 .site-header nav, footer nav { display: flex; align-items: center; gap: 28px; }
-.site-header nav a { padding: 10px 0; color: var(--ink); font-weight: 700; font-size: 14px; }
+.site-header nav a { min-height: 44px; padding: 10px 0; display: inline-flex; align-items: center; color: var(--ink); font-weight: 700; font-size: 14px; }
 
 main { overflow: clip; }
 .hero {
@@ -98,7 +98,7 @@ h4 { margin-bottom: 4px; font-size: 20px; }
 .icon { width: 22px; height: 22px; flex: 0 0 auto; }
 .local-note { margin: 18px 0 0; color: var(--muted); font-size: 14px; font-weight: 700; }
 .hero-art { position: relative; z-index: 1; margin: 0 0 0 -105px; transform: rotate(1.2deg); }
-.hero-art img { width: 100%; border: 2px solid rgba(29, 40, 36, .45); filter: saturate(.94) contrast(1.03); box-shadow: 13px 15px 0 rgba(88, 59, 134, .2); }
+.hero-art img { width: 100%; height: auto; border: 2px solid rgba(29, 40, 36, .45); filter: saturate(.94) contrast(1.03); box-shadow: 13px 15px 0 rgba(88, 59, 134, .2); }
 .hero-art figcaption { position: absolute; right: 10px; bottom: 10px; max-width: 265px; padding: 8px 12px; background: var(--sheet); border: 1px solid var(--ink); font-size: 12px; font-weight: 700; transform: rotate(-2deg); }
 
 .trust-strip { border-block: 2px solid var(--ink); background: var(--violet); color: #fff; padding: 12px max(20px, calc((100% - 1120px) / 2)); display: flex; justify-content: space-between; gap: 20px; font-weight: 800; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
@@ -119,7 +119,9 @@ h4 { margin-bottom: 4px; font-size: 20px; }
 .drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .file-slot { min-width: 0; }
 .file-slot label { min-height: 210px; padding: 28px; display: flex; flex-direction: column; align-items: start; justify-content: center; border: 2px dashed var(--violet); background: rgba(88, 59, 134, .035); cursor: pointer; transition: transform 180ms ease, background-color 180ms ease; }
+.file-slot input:focus-visible + label { outline: 3px solid var(--violet); outline-offset: 4px; }
 .file-slot label:hover, .file-slot.dragging label { transform: translateY(-4px); background: rgba(88, 59, 134, .09); }
+.file-slot.reading label { opacity: .68; cursor: progress; }
 .file-slot.loaded label { border-style: solid; border-color: var(--ink); background: var(--mint); box-shadow: 5px 5px 0 rgba(29, 40, 36, .22); }
 .file-slot .icon { width: 34px; height: 34px; margin-bottom: 15px; color: var(--violet); }
 .file-slot strong { max-width: 100%; overflow-wrap: anywhere; font-family: var(--display); font-size: 22px; line-height: 1.15; }
@@ -159,7 +161,7 @@ select, input[type="text"], input:not([type]) { min-height: 46px; border: 2px so
 .mapping-header, .mapping-row { display: grid; grid-template-columns: 60px minmax(150px, 1fr) minmax(180px, 1fr); align-items: center; min-height: 56px; border-bottom: 1px solid var(--rule); }
 .mapping-header { min-height: 40px; background: rgba(183, 173, 152, .2); color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
 .mapping-header > *, .mapping-row > * { padding: 8px 12px; }
-.mapping-row input { width: 22px; height: 22px; accent-color: var(--violet); }
+.mapping-row input { width: 44px; height: 44px; accent-color: var(--violet); cursor: pointer; }
 .mapping-row select { width: 100%; }
 .recipe-row { margin: 0 0 24px; padding: 13px; display: flex; align-items: center; gap: 12px; background: var(--mint); border: 1px solid var(--ink); }
 .recipe-row select { flex: 1; }
@@ -193,7 +195,7 @@ select, input[type="text"], input:not([type]) { min-height: 46px; border: 2px so
 .row-status.changed { background: var(--yellow); }
 .row-status.collision, .row-status.needs-id { background: var(--danger); color: #fff; }
 .row-status.missing { color: var(--violet-dark); }
-details summary { min-height: 32px; cursor: pointer; font-weight: 700; }
+details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 700; }
 .result-table details ul { margin: 10px 0 0; padding: 0; list-style: none; }
 .result-table details li { padding: 8px 0; display: grid; grid-template-columns: minmax(90px, .7fr) minmax(100px, 1fr) auto minmax(100px, 1fr) auto; gap: 9px; border-top: 1px dotted var(--rule); }
 .before { color: var(--muted); text-decoration: line-through; }
@@ -239,6 +241,7 @@ details summary { min-height: 32px; cursor: pointer; font-weight: 700; }
 footer { padding: 40px max(20px, calc((100% - 1120px) / 2)); display: grid; grid-template-columns: 1fr auto; gap: 24px 50px; background: var(--violet-dark); color: #fff; }
 footer p { margin: 4px 0 0; color: #ded4eb; font-size: 13px; }
 footer a { color: #fff; }
+footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
 .generated-note { grid-column: 1 / -1; padding-top: 18px; border-top: 1px solid #7c6497; }
 .toast { position: fixed; z-index: 50; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); width: min(520px, calc(100% - 32px)); padding: 13px 17px; background: var(--ink); color: #fff; border: 2px solid var(--sheet); box-shadow: 5px 5px 0 var(--orange); text-align: center; transform: translate(-50%, 140%); opacity: 0; transition: transform 200ms ease, opacity 200ms ease; }
 .toast.shown { transform: translate(-50%, 0); opacity: 1; }
@@ -296,7 +299,7 @@ footer a { color: #fff; }
   .identity-grid { grid-template-columns: 1fr; padding: 18px; }
   .match-symbol { width: 100%; height: 26px; }
   .normalization { grid-template-columns: 1fr; }
-  .mapping-header, .mapping-row { grid-template-columns: 46px minmax(100px, .8fr) minmax(150px, 1fr); }
+  .mapping-header, .mapping-row { grid-template-columns: 60px minmax(100px, .8fr) minmax(150px, 1fr); }
   .mapping-table { overflow-x: auto; }
   .mapping-row, .mapping-header { min-width: 480px; }
   .recipe-row { align-items: stretch; flex-direction: column; }
