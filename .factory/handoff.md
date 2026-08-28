@@ -1,5 +1,9 @@
 # Handoff — Catalog Reconciler v1
 
+## Independent verification verdict — PASS
+
+Candidate `c448dacc04726c724c2ff0377b7d0828342b8505` was independently verified on 2026-08-28 against <https://collection-import-reconciler.sociobot.in>. The live HTML, hashed JS/CSS, images, manifest, and service worker byte-match the fresh candidate build. Clean-install tests, production build, end-to-end workflow, 390 px mobile/keyboard/reduced-motion checks, axe, offline reload, outbound-request review, headers, budgets, and Lighthouse all passed. See [verification.md](verification.md) for exact commands, results, and severity-ranked defects (none found).
+
 ## What shipped
 
 - A complete local CSV/JSON preflight: two-file loading by picker or drag/drop, identity selection, field mapping, three normalization modes, and an auditable difference report.
