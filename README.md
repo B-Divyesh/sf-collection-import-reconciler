@@ -1,58 +1,88 @@
 # Catalog Reconciler
 
-Catalog Reconciler is a local-first import preflight for collectors moving records between spreadsheets, Homebox, Koillection, or another catalog. It compares a trusted current catalog with an incoming CSV or JSON file, exposes identity and data-loss risks, and exports only reviewable incoming rows. It does not host a collection or write to another system.
+Catalog Reconciler compares a trusted catalog with a planned import before anything is written.
+It is for collectors moving records between spreadsheets, Homebox, Koillection, or another system.
 
 Live: <https://collection-import-reconciler.sociobot.in>
 
+Demo: <https://collection-import-reconciler.sociobot.in/demo>
+
 ## What it checks
 
-- Added, changed, unchanged, and missing records
-- Duplicate identifiers in either side of a match
-- Blank identifiers that could cause a destination to generate new IDs
-- Current fields that have no incoming mapping
-- Blank incoming values that would replace existing data
-- Exact, trimmed/case-folded, or numeric identifier normalization
+- Reads CSV and JSON catalog files.
+- Reports added, changed, missing, duplicate, and blank identifiers.
+- Reports current fields that have no incoming match.
+- Compares exact, case-folded, or numeric identifiers.
+- Exports reviewed CSV rows without collisions or blank identifiers.
+- Never turns missing current records into deletion commands.
+- Keeps catalog processing in the browser.
+- Works offline after the first visit.
+- Requires no account.
 
-The reviewed CSV excludes incoming rows with blank or colliding identifiers. Missing current records are reported but never translated into deletions. Identifier normalization is used only for comparison; original incoming values are retained in the export.
+Every comparison and reviewed CSV export is free.
+No paid feature is offered in this build.
+The planned $19 Migration kit still needs factory billing registration.
 
-## Supported files
+## Demo sandbox
 
-- CSV with a unique, non-empty header row and at least one data row. Quoted commas, quotes, and line breaks are supported.
-- JSON as an array of objects, or an object containing an array of objects. Nested values are preserved as JSON strings.
-- Files up to 25 MB. Processing happens in browser memory and no catalog row is uploaded.
+Open `/demo` or choose “Try it with sample data” on the first screen.
+The sample shows one added, one changed, one missing, two duplicate, and one blank-ID row.
+It also includes an unmapped field and a formula-like CSV value.
 
-### Spreadsheet formula safety
+Demo state stays in memory under the isolated `demo:` application state.
+It does not read or change local storage.
+“Reset demo” restores the bundled sample.
+“Start for real” opens an empty workspace.
 
-CSV cells beginning with `=`, `+`, `-`, or `@` (after optional whitespace) can be executed as formulas by spreadsheet software. On export, Catalog Reconciler prefixes those cells with an apostrophe. This neutralizes formula injection while keeping the visible value recognizable. Always inspect an export in a copy of the destination before importing it into the live catalog.
+See [.factory/demo.md](.factory/demo.md) for the verification contract.
 
-## Free and paid features
+## File and export rules
 
-All reconciliation, safety checks, and reviewed CSV export are free. The optional **Migration kit** is a one-time $19 license that adds reusable mapping recipes stored in the current browser and printable audit receipts. Checkout and verification use the Sociobot billing API; Dodo is the merchant of record. No payment provider is embedded in this app.
+CSV files need unique, non-empty headers and at least one data row.
+JSON may be an array of objects or an object containing an array.
+Files larger than 25 MB are rejected before comparison.
 
-## Develop and verify
+Exported cells beginning with `=`, `+`, `-`, or `@` receive an apostrophe prefix.
+This prevents spreadsheet formula execution while keeping the value readable.
+Always test the reviewed export on a copy of the destination.
+
+Reloading clears an active real comparison.
+The service worker stores only public app files for offline reloads.
+The app has no analytics, external font, external script, or catalog-processing backend.
+
+## Run and verify
 
 Requirements: Node.js 20 or newer and npm.
 
 ```sh
-npm install
-npm run dev
+npm ci
 npm test
 npm run build
 npm run test:e2e
+npm run test:claims
 ```
 
-The exact production build command is `npm run build`. Vite writes the static deployment to `dist/`, with `dist/index.html` at its root. `npm run test:e2e` starts a preview server and runs Chromium at desktop and 390 px mobile sizes; Playwright 1.58.2 is pinned.
+`npm run build` writes the deployable site to `dist/`.
+Browser commands build first, then start the production preview.
+Playwright 1.58.2 is pinned for desktop and 390-pixel mobile checks.
 
-The app has no runtime CDN, web font, analytics, marketplace credential, or backend dependency for catalog processing. A service worker caches the public shell after the first production visit for offline use. Static Web Apps routing and cache headers are in `public/staticwebapp.config.json`.
+Each public claim and its clean command are listed in [.factory/claims.json](.factory/claims.json).
+Run a deployed URL check with `./verify-url.sh <url>`.
+
+## Deploy
+
+Deploy the contents of `dist/` as an Azure Static Web App.
+Keep `staticwebapp.config.json` at the deployment root.
+The factory owns deployment and product-domain configuration.
 
 ## Structure
 
-- `src/catalog.ts` — CSV/JSON parsing and formula-safe CSV encoding
-- `src/reconcile.ts` — identifier normalization and diff engine
-- `src/license.ts` — one-time license capture, cache, and verification
-- `src/main.ts` — accessible three-step interface and legal routes
-- `.factory/design.md` — visual system, motion rules, and image provenance
-- `.factory/handoff.md` — verification record and known gaps
+- `src/catalog.ts` — CSV and JSON parsing plus formula-safe CSV encoding.
+- `src/reconcile.ts` — identifier normalization and comparison rules.
+- `src/main.ts` — routes, demo state, workflow, and legal pages.
+- `tests/e2e/claims.spec.ts` — observable tests for every public claim.
+- `.factory/design.md` — visual system and asset provenance.
+- `.factory/handoff.md` — verification evidence and known gaps.
 
 ## License
 

@@ -63,3 +63,6 @@ Prompt sheet:
 
 Generated with the factory Azure image deployment (`factory-image`) on 2026-08-28. Original prompt is stored beside the source file in `assets/src/hero-ledgers.json`. The generated asset is original to this product; production WebP/AVIF derivatives are local and contain no third-party material.
 
+The 1200×630 social preview was cropped from that original artwork on 2026-09-05.
+The 180px touch icon was rasterized from the hand-authored product mark on the same date.
+Both derivatives were produced locally with ImageMagick and add no third-party material.

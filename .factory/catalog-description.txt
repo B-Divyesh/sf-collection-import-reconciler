@@ -1,0 +1,1 @@
+Compare catalog files before importing to catch changed IDs, duplicate records, and missing fields.

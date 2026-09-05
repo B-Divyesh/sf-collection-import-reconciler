@@ -1,0 +1,93 @@
+[
+  {
+    "id": "csv-input",
+    "claim": "Reads CSV catalog files and compares their rows.",
+    "where": "landing facts, file picker, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:csv-input",
+    "sandbox": "open /demo, replace both samples with shipped CSV files, run the comparison, and assert changed and collision outcomes"
+  },
+  {
+    "id": "json-input",
+    "claim": "Reads JSON catalog files and compares their rows.",
+    "where": "landing facts, file picker, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:json-input",
+    "sandbox": "open /demo, replace both samples with shipped JSON files, run the comparison, and assert added and missing outcomes"
+  },
+  {
+    "id": "local-processing",
+    "claim": "Catalog processing stays in the browser and sends no catalog data off-origin.",
+    "where": "landing facts, workspace, privacy, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:local-processing",
+    "sandbox": "record every request through the populated demo, filtering, and export; assert every request uses the product origin"
+  },
+  {
+    "id": "identifier-normalization",
+    "claim": "Supports exact, trimmed case-folded, and numeric identifier matching without changing exported identifiers.",
+    "where": "mapping choices, review notice, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:identifier-normalization",
+    "sandbox": "open /demo, load shipped normalization files, compare in all three modes, and inspect the final downloaded identifiers"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works offline after the first visit.",
+    "where": "landing facts, privacy, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:offline-reload",
+    "sandbox": "fresh browser context, load /demo once, wait for the versioned shell cache, go offline, reload, and assert the populated report"
+  },
+  {
+    "id": "risk-report",
+    "claim": "Reports changed, missing, duplicate, and blank identifiers plus unmapped fields.",
+    "where": "landing audience sentence, sample introduction, how it works, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:risk-report",
+    "sandbox": "open the bundled demo and assert each risk category and its count from the rendered report"
+  },
+  {
+    "id": "reviewed-export",
+    "claim": "Exports reviewed CSV rows while excluding collisions, blank identifiers, and missing-item deletions.",
+    "where": "review result, limits, terms, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:reviewed-export",
+    "sandbox": "download the demo export and inspect its filename, row count, included rows, and excluded blocked or missing rows"
+  },
+  {
+    "id": "formula-neutralization",
+    "claim": "Neutralizes spreadsheet formula prefixes in exported CSV cells.",
+    "where": "export notice, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:formula-neutralization",
+    "sandbox": "download the demo CSV and assert the bundled formula-like value has an apostrophe prefix"
+  },
+  {
+    "id": "free-core",
+    "claim": "The complete comparison and reviewed CSV export are free.",
+    "where": "README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:free-core",
+    "sandbox": "open the demo with no license state and complete the reviewed CSV download without a gate"
+  },
+  {
+    "id": "no-account",
+    "claim": "No account is required to compare files or export reviewed rows.",
+    "where": "landing limits, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:no-account",
+    "sandbox": "fresh empty browser context, open /demo, and assert export is enabled without sign-in"
+  },
+  {
+    "id": "demo-isolation",
+    "claim": "Demo sample data is not saved and does not change real local storage.",
+    "where": "demo banner, demo limits, demo documentation",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:demo-isolation",
+    "sandbox": "seed a real-data marker, change and reset the sample, leave demo mode, and assert the marker and empty real workspace"
+  },
+  {
+    "id": "memory-reset",
+    "claim": "Reloading clears the active real comparison.",
+    "where": "privacy, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:memory-reset",
+    "sandbox": "enter through /demo, start for real, load both shipped files, reload, and assert the workspace is empty"
+  },
+  {
+    "id": "file-size-limit",
+    "claim": "Files larger than 25 MB are rejected before comparison.",
+    "where": "file error, README",
+    "test": "npm run test:claims -- --project=desktop-chromium --grep @claim:file-size-limit",
+    "sandbox": "open /demo, choose a 25 MiB plus one byte file, assert the repair message, then load a valid replacement"
+  }
+]
