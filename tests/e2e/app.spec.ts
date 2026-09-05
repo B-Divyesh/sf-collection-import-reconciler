@@ -4,6 +4,18 @@ import { expect, test } from '@playwright/test';
 const require = createRequire(import.meta.url);
 const axePath = require.resolve('axe-core/axe.min.js');
 
+test('first screen states the job, audience, and first action before scrolling', async ({ page }) => {
+  await page.goto('/');
+  const headline = page.getByRole('heading', { level: 1, name: 'Check catalog imports before you write them' });
+  const audience = page.getByText('For collectors moving records between systems who need to catch changed IDs and lost fields before import.');
+  const action = page.getByRole('link', { name: /Check my files/ }).first();
+  await expect(headline).toBeVisible();
+  await expect(audience).toBeVisible();
+  await expect(action).toBeVisible();
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  expect((await action.boundingBox())?.y).toBeLessThan(await page.evaluate(() => window.innerHeight));
+});
+
 test('one-click demo opens a populated, resettable review', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
