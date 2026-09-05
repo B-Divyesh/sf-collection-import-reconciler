@@ -1,0 +1,7 @@
+[
+  { "import_ref": "hb-001", "name": "Blue vase", "location": "Living room", "import_note": "" },
+  { "import_ref": "HB-002", "name": "Field guide", "location": "Study", "import_note": "" },
+  { "import_ref": "HB-002", "name": "Duplicate row", "location": "Garage", "import_note": "" },
+  { "import_ref": "", "name": "Unnumbered print", "location": "Archive", "import_note": "" },
+  { "import_ref": "HB-004", "name": "Brass compass", "location": "Desk", "import_note": "=2+2" }
+]

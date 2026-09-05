@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "import_ref": "HB-001", "name": "Blue vase", "location": "Hall shelf", "notes": "Inherited" },
+    { "import_ref": "HB-002", "name": "Field guide", "location": "Study", "notes": "First edition" },
+    { "import_ref": "HB-003", "name": "Film camera", "location": "Studio", "notes": "Working" }
+  ]
+}

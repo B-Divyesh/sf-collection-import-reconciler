@@ -4,13 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#f3ebd7" />
-    <meta name="description" content="Compare CSV or JSON catalogs locally, catch identifier collisions and field loss, then export a reviewed import file." />
+    <meta name="description" content="Compare current and incoming catalog files, find identity risks, and export reviewed CSV rows in your browser." />
+    <link rel="canonical" href="https://collection-import-reconciler.sociobot.in/" />
     <link rel="icon" href="/mark.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>Catalog Reconciler — preflight collection imports</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Catalog Reconciler" />
+    <meta property="og:title" content="Catalog Reconciler — compare catalog imports" />
+    <meta property="og:description" content="Compare current and incoming catalog files, find identity risks, and export reviewed CSV rows in your browser." />
+    <meta property="og:url" content="https://collection-import-reconciler.sociobot.in/" />
+    <meta property="og:image" content="https://collection-import-reconciler.sociobot.in/assets/catalog-reconciler-social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Two printed collection ledgers aligned beneath a registration loupe" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Catalog Reconciler — compare catalog imports" />
+    <meta name="twitter:description" content="Compare current and incoming catalog files, find identity risks, and export reviewed CSV rows in your browser." />
+    <meta name="twitter:image" content="https://collection-import-reconciler.sociobot.in/assets/catalog-reconciler-social.jpg" />
+    <title>Catalog Reconciler — compare catalog imports</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
+    <div id="route-announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
