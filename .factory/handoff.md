@@ -1,5 +1,14 @@
 # Handoff — Catalog Reconciler v1
 
+## Review 1 status — FAIL
+
+The independent review on 2026-09-05 found 7 defects and 10 untested public
+claims. The live core reconciliation workflow and local quality commands pass,
+but the required demo sandbox is incomplete, the $19 checkout endpoint returns
+404, and required claims/site-structure/security work is missing. See
+[review-1.md](review-1.md) for reproducible evidence. No product code was
+changed in this review.
+
 ## Independent verification verdict — PASS
 
 Candidate `c448dacc04726c724c2ff0377b7d0828342b8505` was independently verified on 2026-08-28 against <https://collection-import-reconciler.sociobot.in>. The live HTML, hashed JS/CSS, images, manifest, and service worker byte-match the fresh candidate build. Clean-install tests, production build, end-to-end workflow, 390 px mobile/keyboard/reduced-motion checks, axe, offline reload, outbound-request review, headers, budgets, and Lighthouse all passed. See [verification.md](verification.md) for exact commands, results, and severity-ranked defects (none found).
