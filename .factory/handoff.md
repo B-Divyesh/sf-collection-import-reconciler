@@ -128,3 +128,23 @@ CSP, privacy behavior, and designed HTTP 404 were independently checked.
 Fresh live Lighthouse mobile results were Performance 100, Accessibility 100,
 Best Practices 100, and SEO 100 (FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0).
 The live HTML, JS, and CSS SHA-256 values match the fresh build.
+
+## Review 2
+
+Fresh strict review 2 is **PASS** with 0 findings and 0 untested public
+claims. The candidate implementation is `c5b7849`; the documentation baseline
+is `1d0ddd8`; the report baseline is `7bfdcb8`. See `.factory/review-2.md`.
+
+From `npm ci`, `npm test`, `npm run build`, `npm run test:e2e`, all 13
+individual claims commands, the live serial Playwright suite, and
+`./verify-url.sh https://collection-import-reconciler.sociobot.in` passed.
+Fresh desktop and 390 px phone browsers confirmed the job, audience, first
+action, populated demo label, reset, and real-data isolation. Fresh live
+Lighthouse scored 100 for Performance, Accessibility, Best Practices, and SEO
+(FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0).
+
+The standalone Axe CLI could not run with the installed Playwright Chromium
+because its ChromeDriver targets a newer browser. The equivalent live
+Playwright Axe checks on all public routes and the live URL verifier passed
+with no serious or critical findings. This is recorded as tool-environment
+evidence, not a product defect.
