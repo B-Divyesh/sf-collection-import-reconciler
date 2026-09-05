@@ -1,8 +1,10 @@
-# Handoff — Catalog Reconciler repair 1
+# Handoff — Catalog Reconciler verification 2
 
 ## Status
 
-Repair 1 is complete and deployed to <https://collection-import-reconciler.sociobot.in>.
+Repair 1 remains deployed to <https://collection-import-reconciler.sociobot.in>.
+Independent verification 2 is **PASS** with 0 findings and 0 untested public
+claims. See `.factory/verification-2.md`.
 
 The job is to compare a trusted catalog with an incoming file before writing records.
 The audience is collectors moving records between catalog systems.
@@ -15,6 +17,8 @@ The first action is “Check my files.”
 - Production browser-test support: `fd0a98d`.
 - The deployed build came from `fd0a98d`; its product files are unchanged from `c5b7849`.
 - `4033dc9` adds only a query-demo regression check after deployment.
+- Verification 2 documentation: `1d0ddd8`; its product files are unchanged
+  from `c5b7849`.
 - The implementation JS and CSS byte-match the live files.
 
 ## What changed
@@ -111,3 +115,16 @@ Production payload:
 
 Evidence is in `/work/.evidence/`.
 It includes live phone and desktop screenshots, response headers, verifier output, and Lighthouse JSON.
+
+## Verification 2
+
+From the clean checkout, `npm ci`, `npm test`, `npm run build`, and
+`npm run test:e2e` passed. Every one of the 13 declared claim commands passed
+separately. A serial fresh-context live run passed all 40 browser checks.
+The live demo, reset, storage isolation, invalid and oversized-file recovery,
+offline reload, keyboard/reduced-motion path, legal routes, links, metadata,
+CSP, privacy behavior, and designed HTTP 404 were independently checked.
+
+Fresh live Lighthouse mobile results were Performance 100, Accessibility 100,
+Best Practices 100, and SEO 100 (FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0).
+The live HTML, JS, and CSS SHA-256 values match the fresh build.
