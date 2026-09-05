@@ -17,6 +17,9 @@ test('first screen states the job, audience, and first action before scrolling',
 });
 
 test('one-click demo opens a populated, resettable review', async ({ page }) => {
+  await page.goto('/?demo=1');
+  await expect(page).toHaveTitle('Demo — Catalog Reconciler');
+  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   await page.goto('/');
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   await expect(page).toHaveURL(/\/demo$/);
